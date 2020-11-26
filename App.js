@@ -168,11 +168,10 @@ const styles = StyleSheet.create({
 export default App;
 
 
-export class UserCard extends React.Component<Props, State> {
+export class UserCard extends React.Component<Props> {
   
   constructor(props: Props) {
     super(props);
-
     if ((props.url || 0) <= 0) {
       throw new Error(
         'I NEED A URL'
@@ -180,7 +179,8 @@ export class UserCard extends React.Component<Props, State> {
     } else {
       let main = async () => {
         let userJson = await getSchemaFromApiAsync(props.url);
-        console.log("json",userJson['intervals'])
+        this.setState({ state: userJson });
+        console.log("json",this.state['state']['intervals'])
       };
     
       main();
@@ -204,6 +204,7 @@ export class UserCard extends React.Component<Props, State> {
         <Text>
           {this.props.url}
         </Text>
+
 
       
       </View>
