@@ -38,11 +38,6 @@ import {
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width
 
-const data = {
-  labels: ["Swim", "Bike", "Run"], // optional
-  data: [0.4, 0.6, 0.8]
-};
-
 Moment.locale('en');
 
 const userURLs = [ 
@@ -237,18 +232,64 @@ export class UserCard extends React.Component<Props> {
 
   render() {
 
-    // let intervals = '';
-    // for(let i=0; i<this.state.intervals.length; i++){
-    //   intervals = <Text>
-    //   Intervals: {this.state.intervals[i].ts}
-    //   </Text>
-    // }
-
     let intervals = this.state.intervals.map((interval) => {
+
+      var awakeSeconds = 0.0;
+      var outSeconds = 0.0;
+      var lightSeconds = 0.0;
+      var deepSeconds = 0.0;
+      
+      for (index in interval.stages) {
+        let stage = interval.stages[index]
+        
+
+        switch(stage.stage) { 
+          case 'deep': { 
+
+
+            deepSeconds += stage.duration 
+            
+             break; 
+          } 
+          case 'out': { 
+            outSeconds += stage.duration 
+             break; 
+          } 
+          case 'light': { 
+            lightSeconds += stage.duration 
+             break; 
+          }
+          case 'awake': { 
+            awakeSeconds += stage.duration 
+             break; 
+          }
+       } 
+      }
+     
+  
+  
+      let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
+      const data = {
+        labels: ["Out", "Awake", "Light", "Deep"], // optional
+        data: [outSeconds/totalDuration, awakeSeconds/totalDuration, lightSeconds/totalDuration,deepSeconds/totalDuration]
+      };
       return (
+        <>
         <Text>
-        { Moment(interval.ts).format('d MMM, HH:MM')}
+        On { Moment(interval.ts).format('d MMM, HH:MM')} you scored {interval.score}
        </Text>
+
+       <ProgressChart
+          data={data}
+          width={screenWidth}
+          height={200}
+          strokeWidth={16}
+          radius={32}
+          chartConfig={chartConfig}
+          hideLegend={false}
+      />
+
+       </>
       )
     });
 
