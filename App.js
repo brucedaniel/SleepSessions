@@ -75,8 +75,6 @@ const carouselStyle = {
   }
 };
 
-var userJSONSs = []
-
 const chartConfig = {
   backgroundGradientFrom: "#1E2923",
   backgroundGradientFromOpacity: 0,
@@ -101,20 +99,6 @@ let getSchemaFromApiAsync = (url) => {
   }
 
 const App: () => React$Node = () => {
-  
-  for(let i=0; i<userURLs.length; i++){
-    let main = async () => {
-      let userJson = await getSchemaFromApiAsync(userURLs[i]);
-      userJSONSs = userJSONSs.concat(userJson)
-      if (userJSONSs.length > 2) {
-        console.log("done",userJSONSs)
-      }
-    };
-  
-    main();
-  }
-    
-
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -125,13 +109,13 @@ const App: () => React$Node = () => {
 
           <Carousel>
     <View style={carouselStyle.slide1}>
-      <Text style={carouselStyle.text}>1</Text>
+      <UserCard url={userURLs[0]}></UserCard>
     </View>
     <View style={carouselStyle.slide2}>
-      <Text style={carouselStyle.text}>2</Text>
+      <UserCard url={userURLs[1]}></UserCard>
     </View>
     <View style={carouselStyle.slide3}>
-      <Text style={carouselStyle.text}>3</Text>
+    <UserCard url={userURLs[2]}></UserCard>
     </View>
   </Carousel>
 
@@ -182,3 +166,47 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+
+export class UserCard extends React.Component<Props, State> {
+  
+  constructor(props: Props) {
+    super(props);
+
+    if ((props.url || 0) <= 0) {
+      throw new Error(
+        'I NEED A URL'
+      );
+    } else {
+      let main = async () => {
+        let userJson = await getSchemaFromApiAsync(props.url);
+        console.log("json",userJson['intervals'])
+      };
+    
+      main();
+    }
+  }
+
+  onIncrement = () =>
+    this.setState({
+      enthusiasmLevel: this.state.enthusiasmLevel + 1
+    });
+  onDecrement = () =>
+    this.setState({
+      enthusiasmLevel: this.state.enthusiasmLevel - 1
+    });
+  getExclamationMarks = (numChars: number) =>
+    Array(numChars + 1).join('!');
+
+  render() {
+    return (
+      <View style={styles.root}>
+        <Text>
+          {this.props.url}
+        </Text>
+
+      
+      </View>
+    );
+  }
+}
