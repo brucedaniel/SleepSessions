@@ -6,6 +6,7 @@
  * @flow strict-local
  */
 
+import Moment from 'moment';
 import React from 'react';
 import Carousel from "pinar";
 import {
@@ -41,6 +42,8 @@ const data = {
   labels: ["Swim", "Bike", "Run"], // optional
   data: [0.4, 0.6, 0.8]
 };
+
+Moment.locale('en');
 
 const userURLs = [ 
   "https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json",
@@ -244,7 +247,7 @@ export class UserCard extends React.Component<Props> {
     let intervals = this.state.intervals.map((interval) => {
       return (
         <Text>
-       Intervals: {interval.ts}
+        { Moment(interval.ts).format('d MMM, HH:MM')}
        </Text>
       )
     });
