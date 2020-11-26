@@ -52,7 +52,29 @@ const chartConfig = {
   useShadowColorFromDataset: false // optional
 };
 
+
 const App: () => React$Node = () => {
+  let getSchemaFromApiAsync = () => {
+    return new Promise((resolve, reject) =>  {
+      //https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json 
+      //https://s3.amazonaws.com/eight-public/challenge/d6c1355e38194139b8d0c870baf86365.json 
+      //https://s3.amazonaws.com/eight-public/challenge/f9bf229fd19e4c799e8c19a962d73449.json
+       fetch('https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json')
+        .then(response => resolve(response.json()))
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        });
+      })
+    }
+  
+    let main = async () => {
+      let res = await getSchemaFromApiAsync();
+      console.log("res", res);
+    };
+  
+    main();
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
