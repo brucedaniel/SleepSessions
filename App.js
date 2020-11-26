@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import Carousel from "pinar";
 import {
   SafeAreaView,
   StyleSheet,
@@ -46,6 +47,33 @@ const userURLs = [
   "https://s3.amazonaws.com/eight-public/challenge/d6c1355e38194139b8d0c870baf86365.json",
   "https://s3.amazonaws.com/eight-public/challenge/f9bf229fd19e4c799e8c19a962d73449.json"
 ]
+
+const carouselStyle = {
+  slide1: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#a3c9a8"
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#84b59f"
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#69a297"
+  },
+  text: {
+    color: "#1f2d3d",
+    opacity: 0.7,
+    fontSize: 48,
+    fontWeight: "bold"
+  }
+};
 
 var userJSONSs = []
 
@@ -94,18 +122,20 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          
-          <View style={styles.body}>
-          <ProgressChart
-            data={data}
-            width={screenWidth}
-            height={220}
-            strokeWidth={16}
-            radius={32}
-            chartConfig={chartConfig}
-            hideLegend={false}
-/>
-          </View>
+
+          <Carousel>
+    <View style={carouselStyle.slide1}>
+      <Text style={carouselStyle.text}>1</Text>
+    </View>
+    <View style={carouselStyle.slide2}>
+      <Text style={carouselStyle.text}>2</Text>
+    </View>
+    <View style={carouselStyle.slide3}>
+      <Text style={carouselStyle.text}>3</Text>
+    </View>
+  </Carousel>
+
+
         </ScrollView>
       </SafeAreaView>
     </>
