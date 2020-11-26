@@ -5505,6 +5505,11 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+pinar@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/pinar/-/pinar-0.11.0.tgz#0040dd9df66b53ae0dc192371a56c0f05d327c6d"
+  integrity sha512-e/i2IIxqwLuhVgQ2d/jP+5DSonxEgS2J1joREdt0f3iENVTw9/td0r2BId9oURW9iDfZqArJzBomLXhIF0huNw==
+
 pirates@^4.0.0, pirates@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.1.tgz#643a92caf894566f91b2b986d2c66950a8e2fb87"
