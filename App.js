@@ -41,6 +41,14 @@ const data = {
   data: [0.4, 0.6, 0.8]
 };
 
+const userURLs = [ 
+  "https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json",
+  "https://s3.amazonaws.com/eight-public/challenge/d6c1355e38194139b8d0c870baf86365.json",
+  "https://s3.amazonaws.com/eight-public/challenge/f9bf229fd19e4c799e8c19a962d73449.json"
+]
+
+var userJSONSs = []
+
 const chartConfig = {
   backgroundGradientFrom: "#1E2923",
   backgroundGradientFromOpacity: 0,
@@ -52,28 +60,32 @@ const chartConfig = {
   useShadowColorFromDataset: false // optional
 };
 
+let getSchemaFromApiAsync = (url) => {
+  return new Promise((resolve, reject) =>  {
+    
+     fetch(url)
+      .then(response => resolve(response.json()))
+      .catch(error => {
+        console.error(error);
+        reject(error);
+      });
+    })
+  }
 
 const App: () => React$Node = () => {
-  let getSchemaFromApiAsync = () => {
-    return new Promise((resolve, reject) =>  {
-      //https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json 
-      //https://s3.amazonaws.com/eight-public/challenge/d6c1355e38194139b8d0c870baf86365.json 
-      //https://s3.amazonaws.com/eight-public/challenge/f9bf229fd19e4c799e8c19a962d73449.json
-       fetch('https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json')
-        .then(response => resolve(response.json()))
-        .catch(error => {
-          console.error(error);
-          reject(error);
-        });
-      })
-    }
   
+  for(let i=0; i<userURLs.length; i++){
     let main = async () => {
-      let res = await getSchemaFromApiAsync();
-      console.log("res", res);
+      let userJson = await getSchemaFromApiAsync(userURLs[i]);
+      userJSONSs = userJSONSs.concat(userJson)
+      if (userJSONSs.length > 2) {
+        console.log("done",userJSONSs)
+      }
     };
   
     main();
+  }
+    
 
   return (
     <>
