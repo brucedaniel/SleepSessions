@@ -226,7 +226,6 @@ export class UserCard extends React.Component<Props> {
         let json = await getSchemaFromApiAsync(props.url);
         this.setState(json);
         
-      //   console.log("json",this.state['userJson'])
       };
     
       main();
@@ -234,11 +233,25 @@ export class UserCard extends React.Component<Props> {
   }
 
   render() {
+
+    // let intervals = '';
+    // for(let i=0; i<this.state.intervals.length; i++){
+    //   intervals = <Text>
+    //   Intervals: {this.state.intervals[i].ts}
+    //   </Text>
+    // }
+
+    let intervals = this.state.intervals.map((interval) => {
+      return (
+        <Text>
+       Intervals: {interval.ts}
+       </Text>
+      )
+    });
+
     return (
       <View style={styles.root}>
-        <Text>
-        {this.state.intervals[0].id}
-        </Text>
+        {intervals}
       </View>
     );
   }
