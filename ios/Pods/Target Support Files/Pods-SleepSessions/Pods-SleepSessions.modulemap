@@ -1,0 +1,6 @@
+module Pods_SleepSessions {
+  umbrella header "Pods-SleepSessions-umbrella.h"
+
+  export *
+  module * { export * }
+}

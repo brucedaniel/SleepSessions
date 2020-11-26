@@ -1,0 +1,6 @@
+module Pods_SleepSessions_SleepSessionsTests {
+  umbrella header "Pods-SleepSessions-SleepSessionsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
