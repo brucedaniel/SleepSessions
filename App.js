@@ -167,11 +167,12 @@ const styles = StyleSheet.create({
 
 export default App;
 
-
 export class UserCard extends React.Component<Props> {
   
   constructor(props: Props) {
     super(props);
+    this.state = {userJson:'pre-fetch'};
+
     if ((props.url || 0) <= 0) {
       throw new Error(
         'I NEED A URL'
@@ -179,24 +180,14 @@ export class UserCard extends React.Component<Props> {
     } else {
       let main = async () => {
         let userJson = await getSchemaFromApiAsync(props.url);
-        this.setState({ state: userJson });
-        console.log("json",this.state['state']['intervals'])
+        this.setState({ userJson });
+        
+        console.log("json",this.state['userJson']['intervals'][0]['id'])
       };
     
       main();
     }
   }
-
-  onIncrement = () =>
-    this.setState({
-      enthusiasmLevel: this.state.enthusiasmLevel + 1
-    });
-  onDecrement = () =>
-    this.setState({
-      enthusiasmLevel: this.state.enthusiasmLevel - 1
-    });
-  getExclamationMarks = (numChars: number) =>
-    Array(numChars + 1).join('!');
 
   render() {
     return (
@@ -204,8 +195,9 @@ export class UserCard extends React.Component<Props> {
         <Text>
           {this.props.url}
         </Text>
-
-
+        <Text>
+          {this.props.url}
+        </Text>
       
       </View>
     );
