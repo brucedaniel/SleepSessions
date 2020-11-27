@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import Moment from 'moment';
+import Moment, { max } from 'moment';
 import React from 'react';
 import Carousel from "pinar";
 import {
@@ -104,8 +104,9 @@ const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
- 
+      <SafeAreaView>
       <UserCard url={userURLs[0]} key='Addy'></UserCard>
+      </SafeAreaView>
 
     </>
   );
@@ -252,8 +253,47 @@ export class UserCard extends React.Component<Props> {
           }
        } 
       }
-     
+
+      var respritoryData = [];
+      var heartRateData = [];
+      var minUnixTime = Number.MAX_SAFE_INTEGER
+      var maxUnixTime = Number.MIN_SAFE_INTEGER
+
+      for (var key in interval.timeseries) {
+        for (index in interval.timeseries[key]) {
+          let tuple = interval.timeseries[key][index]
+          let unixTime = Moment(interval.timeseries[key][index][0]).unix() 
+
+          if (unixTime > maxUnixTime) {
+            maxUnixTime = unixTime
+          }
+
+          if (unixTime < minUnixTime) {
+            minUnixTime = unixTime
+          }
+
+          let value = interval.timeseries[key][index][1]
+          switch(key) { 
+            case 'respiratoryRate': { 
   
+  
+              respritoryData = respritoryData.concat({x:unixTime, y:value})
+              
+               break; 
+            } 
+            case 'heartRate': { 
+              heartRateData = heartRateData.concat({x:unixTime, y:value})
+               break; 
+            } 
+            
+         } 
+        }
+      }
+
+      console.log("respiratoryRate: ", respritoryData)
+      console.log("heartRate: ", heartRateData)
+  
+
   
       let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
       const data = {
@@ -266,11 +306,11 @@ export class UserCard extends React.Component<Props> {
            flexDirection: "column",
            justifyContent: 'space-between',
            alignItems: 'center',
-           padding: 3,
-           margin: 2,
+           padding: 0,
+           margin: 0,
            borderColor: '#FF0044',
-           borderWidth: 2,
-           height: Dimensions.get("window").height
+           borderWidth: 0,
+           height: Dimensions.get("window").height * 0.8
         }
      })
 
@@ -291,30 +331,29 @@ export class UserCard extends React.Component<Props> {
           hideLegend={false}
       />
       <Chart
-  style={{ height: 200, width: 400 }}
-  data={[
-    { x: -2, y: 15 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 1, y: 7 },
-    { x: 2, y: 6 },
-    { x: 3, y: 8 },
-    { x: 4, y: 10 },
-    { x: 5, y: 8 },
-    { x: 6, y: 12 },
-    { x: 7, y: 14 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
+  style={{ height: 200, width: screenWidth }}
+  data={respritoryData}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  xDomain={{ min: -2, max: 10 }}
-  yDomain={{ min: 0, max: 20 }}
+  xDomain={{ min: minUnixTime, max: maxUnixTime }}
+  yDomain={{ min: 10, max: 20 }}
 >
   <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={5} />
   <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
 </Chart>
+
+<Chart
+  style={{ height: 200, width: screenWidth }}
+  data={heartRateData}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: minUnixTime, max: maxUnixTime }}
+  yDomain={{ min: 50, max: 100 }}
+>
+  <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+  <HorizontalAxis tickCount={5} />
+  <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+</Chart>
+
 </View>
        </>
       )
@@ -322,7 +361,7 @@ export class UserCard extends React.Component<Props> {
 
 
     return (
-      <ScrollView horizontal= {false}
+      <ScrollView horizontal= {true}
       decelerationRate={0}
       snapToInterval={screenWidth}
       snapToAlignment={"center"}>
