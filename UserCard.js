@@ -161,14 +161,17 @@ export default class UserCard extends React.Component<Props> {
           <>
           <View style={cellStyle.item}>
 
+          <View style={{ height:20 }}></View>
           <View style={{ flexDirection:"row",width:screenWidth }}>
-          <Text style={{width:"50%", fontSize:25, textAlign:"left" }}>
+          <View style={{ width:"1%" }}></View>
+          <Text style={{width:"49%", fontSize:25, textAlign:"left" }}>
           { Moment(interval.ts).format('MMM DD, HH:MM')}
          </Text>
 
-         <Text style={{width:"50%", fontSize:25, textAlign:"right" }}>
+         <Text style={{width:"47%", fontSize:25, textAlign:"right", color:"#EA6A13" }}>
            Sleep Score: {interval.score} 
          </Text>
+         <View style={{ width:"3%" }}></View>
           </View>
   
          <ProgressChart style={{ right:60 }}
