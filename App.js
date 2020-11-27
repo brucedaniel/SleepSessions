@@ -15,6 +15,7 @@ import {
   ScrollView,
   View,
   Text,
+  Button,
   StatusBar,
 } from 'react-native';
 
@@ -100,11 +101,15 @@ let getSchemaFromApiAsync = (url) => {
     })
   }
 
+  
+
 const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
+
+     
       <UserCard url={userURLs[0]} key='Addy'></UserCard>
       </SafeAreaView>
 
@@ -157,6 +162,9 @@ export class UserCard extends React.Component<Props> {
   
   constructor(props: Props) {
     super(props);
+    this.addy = this.addy.bind(this);
+    this.brit = this.brit.bind(this);
+    this.cal = this.cal.bind(this);
     this.state = {
       "intervals": [ // a collection of sleep sessions (or intervals)
         {
@@ -216,6 +224,42 @@ export class UserCard extends React.Component<Props> {
     
       main();
     }
+  }
+
+  addy() {
+    let main = async () => {
+      let json = await getSchemaFromApiAsync(userURLs[0]);
+      console.log(json)
+      this.setState(json);
+    
+      
+    };
+  
+    main();
+  }
+
+  brit() {
+    let main = async () => {
+      let json = await getSchemaFromApiAsync(userURLs[1]);
+      console.log(json)
+      this.setState(json);
+    
+      
+    };
+  
+    main();
+  }
+
+  cal() {
+    let main = async () => {
+      let json = await getSchemaFromApiAsync(userURLs[2]);
+      console.log(json)
+      this.setState(json);
+    
+      
+    };
+  
+    main();
   }
 
   render() {
@@ -301,9 +345,7 @@ export class UserCard extends React.Component<Props> {
          } 
         }
       }
-  
-      console.log("tnt: ", bedTempData)
-  
+    
       let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
       const data = {
         labels: ["Out", "Awake", "Light", "Deep"], // optional
@@ -412,6 +454,33 @@ export class UserCard extends React.Component<Props> {
 
 
     return (
+      <>
+       <View style={{ flexDirection:"row" }}>
+
+<Button
+onPress={this.addy}
+title="Addy"
+width={screenWidth / 3.0} 
+color="#841584"
+accessibilityLabel="Learn more about this purple button"
+/>
+
+<Button
+onPress={this.brit}
+title="Brit"
+width={screenWidth / 3.0} 
+color="#841584"
+accessibilityLabel="Learn more about this purple button"
+/>
+
+<Button
+onPress={this.cal}
+title="Cal"
+width={screenWidth / 3.0} 
+color="#841584"
+accessibilityLabel="Learn more about this purple button"
+/>
+</View>
       <ScrollView horizontal= {true}
       decelerationRate={0}
       snapToInterval={screenWidth}
@@ -419,7 +488,9 @@ export class UserCard extends React.Component<Props> {
                
         {intervals}
       </ScrollView>
+      </>
       
     );
   }
+  
 }
