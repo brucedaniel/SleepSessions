@@ -153,7 +153,7 @@ export default class UserCard extends React.Component<Props> {
       
         let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
         const data = {
-          labels: ["Out", "Awake", "Light Sleep", "Deep Sleep"],
+          labels: ["Out", "Awake", "Light", "Deep"],
           data: [outSeconds/totalDuration, awakeSeconds/totalDuration, lightSeconds/totalDuration,deepSeconds/totalDuration]
         };
   
