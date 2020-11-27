@@ -40,6 +40,7 @@ import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsi
 
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width
+const screenHeight = Dimensions.get("window").height
 
 Moment.locale('en');
 
@@ -103,26 +104,9 @@ const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-
-          <Carousel>
-    <View style={carouselStyle.slide1}>
+ 
       <UserCard url={userURLs[0]} key='Addy'></UserCard>
-    </View>
-    <View style={carouselStyle.slide2}>
-      <UserCard url={userURLs[1]} key='Brit'></UserCard>
-    </View>
-    <View style={carouselStyle.slide3}>
-    <UserCard url={userURLs[2]} key='Brit'></UserCard>
-    </View>
-  </Carousel>
 
-
-        </ScrollView>
-      </SafeAreaView>
     </>
   );
 };
@@ -276,8 +260,23 @@ export class UserCard extends React.Component<Props> {
         labels: ["Out", "Awake", "Light", "Deep"], // optional
         data: [outSeconds/totalDuration, awakeSeconds/totalDuration, lightSeconds/totalDuration,deepSeconds/totalDuration]
       };
+
+      const cellStyle = StyleSheet.create ({
+        item: {
+           flexDirection: "column",
+           justifyContent: 'space-between',
+           alignItems: 'center',
+           padding: 3,
+           margin: 2,
+           borderColor: '#FF0044',
+           borderWidth: 2,
+           height: Dimensions.get("window").height
+        }
+     })
+
       return (
         <>
+        <View style={cellStyle.item}>
         <Text>
         On { Moment(interval.ts).format('d MMM, HH:MM')} you scored {interval.score}
        </Text>
@@ -316,15 +315,21 @@ export class UserCard extends React.Component<Props> {
   <HorizontalAxis tickCount={5} />
   <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
 </Chart>
-
+</View>
        </>
       )
     });
 
+
     return (
-      <View style={styles.root}>
+      <ScrollView horizontal= {false}
+      decelerationRate={0}
+      snapToInterval={screenWidth}
+      snapToAlignment={"center"}>
+               
         {intervals}
-      </View>
+      </ScrollView>
+      
     );
   }
 }
