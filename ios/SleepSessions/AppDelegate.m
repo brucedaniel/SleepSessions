@@ -125,7 +125,7 @@ static void InitializeFlipper(UIApplication *application) {
   InitializeFlipper(application);
 #endif
 
-  NSDictionary *props = @{@"vendor-id" :[self deviceName]};
+  NSDictionary *props = @{@"device-type" :[self deviceName]};
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge

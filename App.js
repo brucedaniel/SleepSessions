@@ -30,7 +30,8 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 
-const App: () => React$Node = () => {
+export default class App extends React.Component {
+  render() {
   return (
     <>
       <SafeAreaView>
@@ -38,9 +39,11 @@ const App: () => React$Node = () => {
      
       <UserCard></UserCard>
       </SafeAreaView>
+  <Text>{this.props['device-type']}</Text>
 
     </>
   );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -56,4 +59,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
