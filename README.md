@@ -28,3 +28,15 @@ This is my first React Native project, so there may be some gotchas running fres
 -Tick marks and labels to show timeline duration
 
 -Bridge that sends device model from native to react does not know what type of simulator, you only get an actual device name on a real device
+
+-Process the sequential sleep state blocks into timeseries so it can be line plotted like the other types
+
+-Combine some of the spark lines (temps, biometrics)
+
+-Since the tnt data doesn't have much of a range it would probably be better not to use its own spark line for it but use a little dot icon that indicated movement and put it on the combined chart
+
+## Notes
+
+-It seems like the stages tuples (stage/duration) should also have a start timestamp. JSON spec does not include array order. Working through it sequentially tends to work because most JSON parsers happen to preserve order, but I don't think it is ideal
+
+-It seems like the timestamp and value tuples in the timeseries should have keys like "ts" and "val" or something. Relying on index 0 and 1 relies on your json transport preserving order and makes code less readable
