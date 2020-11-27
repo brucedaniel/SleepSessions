@@ -359,7 +359,6 @@ export default class UserCard extends React.Component<Props> {
   title="Addy"
   width={screenWidth / 3.0} 
   color="#841584"
-  accessibilityLabel="Learn more about this purple button"
   />
   
   <Button
@@ -367,7 +366,6 @@ export default class UserCard extends React.Component<Props> {
   title="Brit"
   width={screenWidth / 3.0} 
   color="#841584"
-  accessibilityLabel="Learn more about this purple button"
   />
   
   <Button
@@ -375,7 +373,6 @@ export default class UserCard extends React.Component<Props> {
   title="Cal"
   width={screenWidth / 3.0} 
   color="#841584"
-  accessibilityLabel="Learn more about this purple button"
   />
   </View>
         <ScrollView horizontal= {true}
