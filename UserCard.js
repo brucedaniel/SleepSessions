@@ -42,28 +42,6 @@ const userURLs = [
     "https://s3.amazonaws.com/eight-public/challenge/f9bf229fd19e4c799e8c19a962d73449.json"
   ]
 
-const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
-  };
-
-  let getSchemaFromApiAsync = (url) => {
-    return new Promise((resolve, reject) =>  {
-      
-       fetch(url)
-        .then(response => resolve(response.json()))
-        .catch(error => {
-          console.error(error);
-          reject(error);
-        });
-      })
-    }
 
 export default class UserCard extends React.Component<Props> {
   
@@ -72,70 +50,16 @@ export default class UserCard extends React.Component<Props> {
       this.addy = this.addy.bind(this);
       this.brit = this.brit.bind(this);
       this.cal = this.cal.bind(this);
-      this.state = {
-        "intervals": [ // a collection of sleep sessions (or intervals)
-          {
-            "id": "999999999999", // id of the interval
-            "ts": "2017-02-28T05:10:00.000Z", // time the session starts in ISO 8601 format
-            "stages": [ // the sleep stages of the session
-              {
-                "stage": "awake", // each stage can be any of "awake" (in bed, awake), "out" (out of bed), "light" (in light sleep), "deep" (in deep sleep)
-                "duration": 1024 // duration of the stage, in seconds
-              },
-              {
-                "stage": "light",
-                "duration": 1020
-              }
-            ],
-            "score": 93, // the sleep score of the session (min 0, max 100)
-            "timeseries": { // collection of timeseries data
-              "tnt": [ // short for "toss and turns"
-                ["2017-02-28T06:20:00.000Z", 1], // datapoint of the timeseries, in the format [time, value]
-                ["2017-02-28T06:21:00.000Z", 2],
-                ["2017-02-28T06:30:00.000Z", 1]
-              ],
-              "tempRoomC": [ // ambient room temperature, in celsius
-                ["2017-02-28T05:00:00.000Z", 19.787400000000005],
-              ],
-              "tempBedC": [ // bed temperature, celsius
-                ["2017-02-28T05:00:00.000Z", 34.151399999999995]
-              ],
-              "respiratoryRate": [ // measured in "breaths per minute"
-                ["2017-02-28T05:00:00.000Z", 16.666666666666668],
-              ],
-              "heartRate": [ // measured in "beats per minute"
-                ["2017-02-28T05:00:00.000Z", 48],
-              ],
-              "heating": [ // ignore this
-                ["2017-02-28T05:10:00.000Z", 18840],
-                ["2017-02-28T10:25:00.000Z", 11100]
-              ]
-            }
-          },
-          {
-            // next interval
-          }
-        ]
-      }
+      this.state = { "intervals": [ ] }
   
-        let main = async () => {
-          let json = await getSchemaFromApiAsync(userURLs[0]);
-          this.setState(json);
-          
-        };
-      
-        main();
-      
+       this.addy()
     }
   
     addy() {
       let main = async () => {
         let json = await getSchemaFromApiAsync(userURLs[0]);
         this.setState(json);
-      
-        
       };
-    
       main();
     }
   
@@ -144,7 +68,6 @@ export default class UserCard extends React.Component<Props> {
         let json = await getSchemaFromApiAsync(userURLs[1]);
         this.setState(json);
       };
-    
       main();
     }
   
@@ -152,10 +75,7 @@ export default class UserCard extends React.Component<Props> {
       let main = async () => {
         let json = await getSchemaFromApiAsync(userURLs[2]);
         this.setState(json);
-      
-        
       };
-    
       main();
     }
   
@@ -388,3 +308,27 @@ export default class UserCard extends React.Component<Props> {
     }
     
   }
+
+
+const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+  };
+
+  let getSchemaFromApiAsync = (url) => {
+    return new Promise((resolve, reject) =>  {
+      
+       fetch(url)
+        .then(response => resolve(response.json()))
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        });
+      })
+    }
