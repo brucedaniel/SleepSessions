@@ -95,6 +95,14 @@ export default class UserCard extends React.Component<Props> {
         var bedTempData = [];
         var minUnixTime = Number.MAX_SAFE_INTEGER
         var maxUnixTime = Number.MIN_SAFE_INTEGER
+        var minResp = Number.MAX_SAFE_INTEGER
+        var maxResp= Number.MIN_SAFE_INTEGER
+        var minHeart = Number.MAX_SAFE_INTEGER
+        var maxHeart= Number.MIN_SAFE_INTEGER
+        var minBed = Number.MAX_SAFE_INTEGER
+        var maxBed= Number.MIN_SAFE_INTEGER
+        var minRoom = Number.MAX_SAFE_INTEGER
+        var maxRoom= Number.MIN_SAFE_INTEGER
   
         for (var key in interval.timeseries) {
           for (index in interval.timeseries[key]) {
@@ -112,10 +120,14 @@ export default class UserCard extends React.Component<Props> {
             let value = interval.timeseries[key][index][1]
             switch(key) { 
               case 'respiratoryRate': { 
+                if (value>maxResp) {maxResp = value}
+                if (value<minResp) {minResp = value}
                 respritoryData = respritoryData.concat({x:unixTime, y:value})
                  break; 
               } 
               case 'heartRate': { 
+                if (value>maxHeart) {maxHeart = value}
+                if (value<minHeart) {minHeart = value}
                 heartRateData = heartRateData.concat({x:unixTime, y:value})
                  break; 
               } 
@@ -124,10 +136,14 @@ export default class UserCard extends React.Component<Props> {
                  break; 
               } 
               case 'tempBedC': { 
+                if (value>maxBed) {maxBed = value}
+                if (value<minBed) {minBed = value}
                 bedTempData = bedTempData.concat({x:unixTime, y:value})
                  break; 
               } 
               case 'tempRoomC': { 
+                if (value>maxRoom) {maxRoom = value}
+                if (value<minRoom) {minRoom = value}
                 roomTempData = roomTempData.concat({x:unixTime, y:value})
                  break; 
               }  
@@ -155,7 +171,7 @@ export default class UserCard extends React.Component<Props> {
          </Text>
           </View>
   
-         <ProgressChart
+         <ProgressChart style={{ right:60 }}
             data={data}
             width={screenWidth}
             height={200}
@@ -165,69 +181,59 @@ export default class UserCard extends React.Component<Props> {
             hideLegend={false}
           />
   
-          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Respiration Rate</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left", color: '#9061C2', top:15 }}> Respiration Rate</Text>
           <Chart
-            style={{ height: 80, width: screenWidth }}
+            style={{ height: 50, width: screenWidth }}
             data={respritoryData}
             padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
             xDomain={{ min: minUnixTime, max: maxUnixTime }}
-            yDomain={{ min: 10, max: 20 }}
+            yDomain={{ min: minResp-1, max: maxResp+1 }}
           >
-            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-            <HorizontalAxis tickCount={0} />
-            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+            <Line theme={{ stroke: { color: '#9061C2', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Heart Rate</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left", color: '#420943', top:15 }}> Heart Rate</Text>
           <Chart
-            style={{ height: 80, width: screenWidth }}
+            style={{ height: 50, width: screenWidth }}
             data={heartRateData}
             padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
             xDomain={{ min: minUnixTime, max: maxUnixTime }}
-            yDomain={{ min: 40, max: 90 }}
+            yDomain={{ min: minHeart-1, max: maxHeart+1 }}
           >
-            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-            <HorizontalAxis tickCount={0} />
-            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+            <Line theme={{ stroke: { color: '#420943', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Tossing and Turning</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left", color: '#9061C2', top:15 }}> Tossing and Turning</Text>
           <Chart
-            style={{ height: 80, width: screenWidth }}
+            style={{ height: 50, width: screenWidth }}
             data={tossAndTurnData}
             padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
             xDomain={{ min: minUnixTime, max: maxUnixTime }}
             yDomain={{ min: 0, max: 3 }}
           >
-            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-            <HorizontalAxis tickCount={0} />
-            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+            <Line theme={{ stroke: { color: '#9061C2', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Bed Temperature</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left", color: '#660066', top:15 }}> Bed Temperature</Text>
           <Chart
-            style={{ height: 80, width: screenWidth }}
+            style={{ height: 50, width: screenWidth }}
             data={bedTempData}
             padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
             xDomain={{ min: minUnixTime, max: maxUnixTime }}
-            yDomain={{ min: 10, max: 60 }}
+            yDomain={{ min: minBed-1, max: maxBed+1 }}
           >
-            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-            <HorizontalAxis tickCount={0} />
-            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+            <Line theme={{ stroke: { color: '#660066', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Room Temperature</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left", color: '#C0ADDB' , top:15}}> Room Temperature</Text>
           <Chart
-            style={{ height: 80, width: screenWidth }}
+            style={{ height: 50, width: screenWidth }}
             data={roomTempData}
             padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
             xDomain={{ min: minUnixTime, max: maxUnixTime }}
-            yDomain={{ min: 10, max: 60 }}
+            yDomain={{ min: minRoom-1, max: maxRoom+1 }}
           >
-            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-            <HorizontalAxis tickCount={0} />
-            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+            <Line theme={{ stroke: { color: '#C0ADDB', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
       </View>
      </>
@@ -266,7 +272,7 @@ const chartConfig = {
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: "#FFFFFF",
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    color: (opacity = 1) => `rgba(66, 9, 67, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
