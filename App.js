@@ -39,7 +39,7 @@ export default class App extends React.Component {
      
       <UserCard></UserCard>
       </SafeAreaView>
-  <Text>{this.props['device-type']}</Text>
+  <Text> Current Mobile: {this.props['device-type']}</Text>
 
     </>
   );

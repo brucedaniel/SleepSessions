@@ -1,40 +1,14 @@
 import Moment, { max } from 'moment';
 import React, { Component } from 'react';
-import Carousel from "pinar";
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StatusBar,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, Button, StatusBar, } from 'react-native';
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 
 import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsive-linechart'
 
-
 import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get("window").width
-const screenHeight = Dimensions.get("window").height
-Moment.locale('en');
 
 const userURLs = [ 
     "https://s3.amazonaws.com/eight-public/challenge/2228b530e055401f81ba37b51ff6f81d.json",
@@ -94,8 +68,7 @@ export default class UserCard extends React.Component<Props> {
   
           switch(stage.stage) { 
             case 'deep': { 
-  
-  
+
               deepSeconds += stage.duration 
               
                break; 
@@ -157,30 +130,16 @@ export default class UserCard extends React.Component<Props> {
               case 'tempRoomC': { 
                 roomTempData = roomTempData.concat({x:unixTime, y:value})
                  break; 
-              } 
-              
+              }  
            } 
           }
         }
       
         let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
         const data = {
-          labels: ["Out", "Awake", "Light", "Deep"], // optional
+          labels: ["Out", "Awake", "Light", "Deep"],
           data: [outSeconds/totalDuration, awakeSeconds/totalDuration, lightSeconds/totalDuration,deepSeconds/totalDuration]
         };
-  
-        const cellStyle = StyleSheet.create ({
-          item: {
-             flexDirection: "column",
-             justifyContent: 'space-between',
-             alignItems: 'center',
-             padding: 0,
-             margin: 0,
-             borderColor: '#FF0044',
-             borderWidth: 0,
-             height: Dimensions.get("window").height * 0.8
-          }
-       })
   
         return (
           <>
@@ -197,116 +156,94 @@ export default class UserCard extends React.Component<Props> {
             radius={32}
             chartConfig={chartConfig}
             hideLegend={false}
-        />
+          />
   
-  <Text>Respiration Rate</Text>
-        <Chart
-    style={{ height: 80, width: screenWidth }}
-    data={respritoryData}
-    padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
-    xDomain={{ min: minUnixTime, max: maxUnixTime }}
-    yDomain={{ min: 10, max: 20 }}
-  >
-    <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-    <HorizontalAxis tickCount={0} />
-    <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
-  </Chart>
+          <Text>Respiration Rate</Text>
+          <Chart
+            style={{ height: 80, width: screenWidth }}
+            data={respritoryData}
+            padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
+            xDomain={{ min: minUnixTime, max: maxUnixTime }}
+            yDomain={{ min: 10, max: 20 }}
+          >
+            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+            <HorizontalAxis tickCount={0} />
+            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+          </Chart>
   
-  <Text>Heart Rate</Text>
-  <Chart
-    style={{ height: 80, width: screenWidth }}
-    data={heartRateData}
-    padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
-    xDomain={{ min: minUnixTime, max: maxUnixTime }}
-    yDomain={{ min: 40, max: 90 }}
-  >
-    <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-    <HorizontalAxis tickCount={0} />
-    <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
-  </Chart>
+          <Text>Heart Rate</Text>
+          <Chart
+            style={{ height: 80, width: screenWidth }}
+            data={heartRateData}
+            padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
+            xDomain={{ min: minUnixTime, max: maxUnixTime }}
+            yDomain={{ min: 40, max: 90 }}
+          >
+            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+            <HorizontalAxis tickCount={0} />
+            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+          </Chart>
   
-  <Text>Tossing and Turning</Text>
-  <Chart
-    style={{ height: 80, width: screenWidth }}
-    data={tossAndTurnData}
-    padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
-    xDomain={{ min: minUnixTime, max: maxUnixTime }}
-    yDomain={{ min: 0, max: 3 }}
-  >
-    <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-    <HorizontalAxis tickCount={0} />
-    <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
-  </Chart>
+          <Text>Tossing and Turning</Text>
+          <Chart
+            style={{ height: 80, width: screenWidth }}
+            data={tossAndTurnData}
+            padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
+            xDomain={{ min: minUnixTime, max: maxUnixTime }}
+            yDomain={{ min: 0, max: 3 }}
+          >
+            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+            <HorizontalAxis tickCount={0} />
+            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+          </Chart>
   
-  <Text>Bed Temperature</Text>
-  <Chart
-    style={{ height: 80, width: screenWidth }}
-    data={bedTempData}
-    padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
-    xDomain={{ min: minUnixTime, max: maxUnixTime }}
-    yDomain={{ min: 10, max: 60 }}
-  >
-    <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-    <HorizontalAxis tickCount={0} />
-    <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
-  </Chart>
+          <Text>Bed Temperature</Text>
+          <Chart
+            style={{ height: 80, width: screenWidth }}
+            data={bedTempData}
+            padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
+            xDomain={{ min: minUnixTime, max: maxUnixTime }}
+            yDomain={{ min: 10, max: 60 }}
+          >
+            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+            <HorizontalAxis tickCount={0} />
+            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+          </Chart>
   
-  <Text>Room Temperature</Text>
-  <Chart
-    style={{ height: 80, width: screenWidth }}
-    data={roomTempData}
-    padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
-    xDomain={{ min: minUnixTime, max: maxUnixTime }}
-    yDomain={{ min: 10, max: 60 }}
-  >
-    <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-    <HorizontalAxis tickCount={0} />
-    <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
-  </Chart>
-  
-  </View>
-         </>
-        )
-      });
+          <Text>Room Temperature</Text>
+          <Chart
+            style={{ height: 80, width: screenWidth }}
+            data={roomTempData}
+            padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
+            xDomain={{ min: minUnixTime, max: maxUnixTime }}
+            yDomain={{ min: 10, max: 60 }}
+          >
+            <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+            <HorizontalAxis tickCount={0} />
+            <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+          </Chart>
+      </View>
+     </>
+      )});
   
   
       return (
         <>
          <View style={{ flexDirection:"row" }}>
   
-  <Button
-  onPress={this.addy}
-  title="Addy"
-  width={screenWidth / 3.0} 
-  color="#841584"
-  />
+          <Button onPress={this.addy} title="Addy" width={screenWidth / 3.0}  color="#841584" />
   
-  <Button
-  onPress={this.brit}
-  title="Brit"
-  width={screenWidth / 3.0} 
-  color="#841584"
-  />
+          <Button onPress={this.brit} title="Brit" width={screenWidth / 3.0} color="#841584" />
   
-  <Button
-  onPress={this.cal}
-  title="Cal"
-  width={screenWidth / 3.0} 
-  color="#841584"
-  />
-  </View>
-        <ScrollView horizontal= {true}
-        decelerationRate={0}
-        snapToInterval={screenWidth}
-        snapToAlignment={"center"}>
-                 
+          <Button onPress={this.cal} title="Cal" width={screenWidth / 3.0} color="#841584" />
+        </View>
+        <ScrollView horizontal= {true} decelerationRate={0} snapToInterval={screenWidth} snapToAlignment={"center"}>      
           {intervals}
         </ScrollView>
         </>
         
       );
     }
-    
   }
 
 
@@ -321,6 +258,19 @@ const chartConfig = {
     useShadowColorFromDataset: false // optional
   };
 
+  const cellStyle = StyleSheet.create ({
+    item: {
+       flexDirection: "column",
+       justifyContent: 'space-between',
+       alignItems: 'center',
+       padding: 0,
+       margin: 0,
+       borderColor: '#FF0044',
+       borderWidth: 0,
+       height: Dimensions.get("window").height * 0.8
+    }
+ })
+
   let getSchemaFromApiAsync = (url) => {
     return new Promise((resolve, reject) =>  {
       
@@ -332,3 +282,7 @@ const chartConfig = {
         });
       })
     }
+
+const screenWidth = Dimensions.get("window").width
+const screenHeight = Dimensions.get("window").height
+Moment.locale('en');
