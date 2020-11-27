@@ -359,7 +359,7 @@ export class UserCard extends React.Component<Props> {
   data={heartRateData}
   padding={{ left: 0, bottom: 0, right: 0, top: 0 }}
   xDomain={{ min: minUnixTime, max: maxUnixTime }}
-  yDomain={{ min: 50, max: 100 }}
+  yDomain={{ min: 40, max: 90 }}
 >
   <VerticalAxis tickCount={0} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={0} />
