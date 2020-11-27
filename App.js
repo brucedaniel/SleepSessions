@@ -35,12 +35,9 @@ export default class App extends React.Component {
   return (
     <>
       <SafeAreaView>
-
-     
       <UserCard></UserCard>
       </SafeAreaView>
-  <Text> Current Mobile: {this.props['device-type']}</Text>
-
+        <Text> Current Mobile: {this.props['device-type']}</Text>
     </>
   );
   }

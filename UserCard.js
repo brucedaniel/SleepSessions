@@ -137,16 +137,23 @@ export default class UserCard extends React.Component<Props> {
       
         let totalDuration = 0.01 + awakeSeconds + deepSeconds + lightSeconds + outSeconds
         const data = {
-          labels: ["Out", "Awake", "Light", "Deep"],
+          labels: ["Out", "Awake", "Light Sleep", "Deep Sleep"],
           data: [outSeconds/totalDuration, awakeSeconds/totalDuration, lightSeconds/totalDuration,deepSeconds/totalDuration]
         };
   
         return (
           <>
           <View style={cellStyle.item}>
-          <Text>
-          On { Moment(interval.ts).format('d MMM, HH:MM')} you scored {interval.score}
+
+          <View style={{ flexDirection:"row",width:screenWidth }}>
+          <Text style={{width:"50%", fontSize:25, textAlign:"left" }}>
+          { Moment(interval.ts).format('MMM DD, HH:MM')}
          </Text>
+
+         <Text style={{width:"50%", fontSize:25, textAlign:"right" }}>
+           Sleep Score: {interval.score} 
+         </Text>
+          </View>
   
          <ProgressChart
             data={data}
@@ -158,7 +165,7 @@ export default class UserCard extends React.Component<Props> {
             hideLegend={false}
           />
   
-          <Text>Respiration Rate</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Respiration Rate</Text>
           <Chart
             style={{ height: 80, width: screenWidth }}
             data={respritoryData}
@@ -171,7 +178,7 @@ export default class UserCard extends React.Component<Props> {
             <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text>Heart Rate</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Heart Rate</Text>
           <Chart
             style={{ height: 80, width: screenWidth }}
             data={heartRateData}
@@ -184,7 +191,7 @@ export default class UserCard extends React.Component<Props> {
             <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text>Tossing and Turning</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Tossing and Turning</Text>
           <Chart
             style={{ height: 80, width: screenWidth }}
             data={tossAndTurnData}
@@ -197,7 +204,7 @@ export default class UserCard extends React.Component<Props> {
             <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text>Bed Temperature</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Bed Temperature</Text>
           <Chart
             style={{ height: 80, width: screenWidth }}
             data={bedTempData}
@@ -210,7 +217,7 @@ export default class UserCard extends React.Component<Props> {
             <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
           </Chart>
   
-          <Text>Room Temperature</Text>
+          <Text style={{width:"100%", fontSize:15, textAlign:"left" }}> Room Temperature</Text>
           <Chart
             style={{ height: 80, width: screenWidth }}
             data={roomTempData}
@@ -255,11 +262,11 @@ export default class UserCard extends React.Component<Props> {
 
 
 const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFrom: "#FFFFFF",
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
+    backgroundGradientTo: "#FFFFFF",
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
