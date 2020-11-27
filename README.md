@@ -26,3 +26,5 @@ This is my first React Native project, so there may be some gotchas running fres
 -Refactor render method in UserCard so that the data processing is somewhere else
 
 -Tick marks and labels to show timeline duration
+
+-Bridge that sends device model from native to react does not know what type of simulator, you only get an actual device name on a real device
