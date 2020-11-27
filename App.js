@@ -8,30 +8,15 @@
 
 import React from 'react';
 import UserCard from './UserCard.js';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, Button, StatusBar, } from 'react-native';
+import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export default class App extends React.Component {
   render() {
+    //Shows current device that app is running on. Demos how to use bridge
   return (
     <>
       <SafeAreaView>

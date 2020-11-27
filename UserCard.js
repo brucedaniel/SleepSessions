@@ -1,13 +1,9 @@
 import Moment, { max } from 'moment';
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, Button, StatusBar, } from 'react-native';
-
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
-
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-
 import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsive-linechart'
-
 import { Dimensions } from "react-native";
 
 const userURLs = [ 
@@ -21,14 +17,20 @@ export default class UserCard extends React.Component<Props> {
   
     constructor(props: Props) {
       super(props);
+
+      //These shims seem to be nescessary to get these methods to capture context.
       this.addy = this.addy.bind(this);
       this.brit = this.brit.bind(this);
       this.cal = this.cal.bind(this);
+
+      //Dummy interval data so render can work before the data comes in
       this.state = { "intervals": [ ] }
   
+      //select the first user to display
        this.addy()
     }
   
+    //Hard coded methods for loading a specific url
     addy() {
       let main = async () => {
         let json = await getSchemaFromApiAsync(userURLs[0]);
@@ -54,7 +56,10 @@ export default class UserCard extends React.Component<Props> {
     }
   
     render() {
-  
+      //This following chunk that prepares the data needed for the views should probbaly be moved somewhere else
+      //but at the moment I'm a little green as variable scoping in this context so for now it is still here
+      //making this render method huge
+
       let intervals = this.state.intervals.map((interval) => {
   
         var awakeSeconds = 0.0;
@@ -62,10 +67,11 @@ export default class UserCard extends React.Component<Props> {
         var lightSeconds = 0.0;
         var deepSeconds = 0.0;
         
+        //We loop through the stages to make data for our pie chart thing
+        //TODO: use the beginning time to generate timestamps here so this 
+        //data can be plotted like the line data below
         for (index in interval.stages) {
           let stage = interval.stages[index]
-          
-  
           switch(stage.stage) { 
             case 'deep': { 
 
@@ -88,6 +94,7 @@ export default class UserCard extends React.Component<Props> {
          } 
         }
   
+        //Lots of variables so we can get the bounds right on our spark lines
         var respritoryData = [];
         var heartRateData = [];
         var tossAndTurnData = [];
@@ -104,6 +111,8 @@ export default class UserCard extends React.Component<Props> {
         var minRoom = Number.MAX_SAFE_INTEGER
         var maxRoom= Number.MIN_SAFE_INTEGER
   
+        //Iterate through each set of time series, putting the data in the correct array 
+        //and updating the bounds checks. Using epoch seconds to make math easy.
         for (var key in interval.timeseries) {
           for (index in interval.timeseries[key]) {
             let tuple = interval.timeseries[key][index]
@@ -269,7 +278,8 @@ export default class UserCard extends React.Component<Props> {
     }
   }
 
-
+//I need to spend some time studying some high quality react projects and see best ways to handle these style blobs
+//I'm not really happy having them just dumped all over the place like I've done, I'm sure there are better practices
 const chartConfig = {
     backgroundGradientFrom: "#FFFFFF",
     backgroundGradientFromOpacity: 0,
