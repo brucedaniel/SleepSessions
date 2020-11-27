@@ -33,6 +33,8 @@ This is my first React Native project, so there may be some gotchas running fres
 
 -Combine some of the spark lines (temps, biometrics)
 
+-Lazy load the intervals screens
+
 -Design considerations - I kind of cobbled it together while learning all the React gotchas
 
 -Since the tnt data doesn't have much of a range it would probably be better not to use its own spark line for it but use a little dot icon that indicated movement and put it on the combined chart
