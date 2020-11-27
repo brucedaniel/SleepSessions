@@ -1,7 +1,7 @@
 # Sleep Sessions
 
 This project visualizes sleep session data from Eight Sleep
-
+![](demo.gif)
 
 ## Usage
 In the normal place:
