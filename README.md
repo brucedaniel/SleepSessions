@@ -35,8 +35,3 @@ This is my first React Native project, so there may be some gotchas running fres
 
 -Since the tnt data doesn't have much of a range it would probably be better not to use its own spark line for it but use a little dot icon that indicated movement and put it on the combined chart
 
-## Notes
-
--It seems like the stages tuples (stage/duration) should also have a start timestamp. JSON spec does not include array order. Working through it sequentially tends to work because most JSON parsers happen to preserve order, but I don't think it is ideal
-
--It seems like the timestamp and value tuples in the timeseries should have keys like "ts" and "val" or something. Relying on index 0 and 1 relies on your json transport preserving order and makes code less readable
