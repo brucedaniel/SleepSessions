@@ -230,12 +230,19 @@ export default class UserCard extends React.Component<Props> {
       return (
         <>
          <View style={{ flexDirection:"row" }}>
+
+          <View style={[{ width: screenWidth/3.0, margin: 0, backgroundColor: "grey" }]}>
+            <Button onPress={this.addy} title="Addy" color="#FFFFFF" />
+          </View>
   
-          <Button onPress={this.addy} title="Addy" width={screenWidth / 3.0}  color="#841584" />
-  
-          <Button onPress={this.brit} title="Brit" width={screenWidth / 3.0} color="#841584" />
-  
-          <Button onPress={this.cal} title="Cal" width={screenWidth / 3.0} color="#841584" />
+          <View style={[{ width: screenWidth/3.0, margin: 0, backgroundColor: "grey" }]}>
+            <Button onPress={this.brit} title="Brit" width={screenWidth / 3.0} color="#FFFFFF" />
+          </View>
+
+          <View style={[{ width: screenWidth/3.0, margin: 0, backgroundColor: "grey" }]}>
+            <Button onPress={this.cal} title="Cal" width={screenWidth / 3.0} color="#FFFFFF" />
+          </View>
+
         </View>
         <ScrollView horizontal= {true} decelerationRate={0} snapToInterval={screenWidth} snapToAlignment={"center"}>      
           {intervals}
